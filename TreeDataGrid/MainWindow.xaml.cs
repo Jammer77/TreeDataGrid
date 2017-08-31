@@ -55,7 +55,6 @@ namespace TreeDataGrid
                 {
                     Name = "Parent",
                     Description = i.ToString()
-
                 };
                 var children = new List<TestData>();
                 for (int j = 0; j < 10; j++)
