@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TreeDataGrid"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="600" Width="800">
     <Grid>
         <Grid.Resources>
             <local:SelectConverter x:Key="SelectConverter" />
@@ -16,19 +16,19 @@
             <RowDefinition Height="273*"/>
             <RowDefinition Height="46*"/>
         </Grid.RowDefinitions>
-        <Button Content="Button" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Width="497" Height="26" Margin="10,10,0,0" Click="Button_Click"/>
-      
+        <Button Content="Button" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Width="772" Height="62" Margin="10,10,0,0" Click="Button_Click"/>
+
         <DataGrid x:Name="dataGrid" AutoGenerateColumns="False" >
             <DataGrid.Columns>
                 <DataGridTemplateColumn Header=">">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <CheckBox IsChecked="{Binding ., Converter={StaticResource SelectConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding ., Converter={StaticResource ChildrenVisibilityConverter}}"/>
+                            <CheckBox DataContext="{Binding .}"  Click="Button_Click_1" IsChecked="{Binding ., Converter={StaticResource SelectConverter}, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True,UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding ., Converter={StaticResource ChildrenVisibilityConverter}}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
 
-                <DataGridTemplateColumn Header="Name">
+                <DataGridTemplateColumn Header="Name" MinWidth="200">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding Name}">

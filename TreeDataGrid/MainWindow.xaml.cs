@@ -25,6 +25,8 @@ namespace TreeDataGrid
 
 	public partial class MainWindow : Window
 	{
+		private List<TestData> _testDataCollection;
+
 		public MainWindow()
 		{
 			InitializeComponent();
@@ -32,7 +34,7 @@ namespace TreeDataGrid
 
 		private void Button_Click(object sender, RoutedEventArgs e)
 		{
-			var testDataCollection = new List<TestData>();
+			_testDataCollection = new List<TestData>();
 			for (int i = 0; i < 10; i++)
 			{
 				var newItem = new TestData()
@@ -65,16 +67,16 @@ namespace TreeDataGrid
 								Name = "SubChild"
 							},
 						};
-						SelectConverter.SelectedItems.Add(child);
+		//				SelectConverter.SelectedItems.Add(child);
 					}
 					
 					children.Add(child);
 				}
 				newItem.Children = children;
-				testDataCollection.Add(newItem);
+				_testDataCollection.Add(newItem);
 			}
-			SelectConverter.SelectedItems.Add(testDataCollection.FirstOrDefault());
-			dataGrid.ItemsSource = GetList(testDataCollection);
+	//		SelectConverter.SelectedItems.Add(_testDataCollection.FirstOrDefault());
+			dataGrid.ItemsSource = GetList(_testDataCollection);
 		}
 
 		private IEnumerable<TestData> GetList(IEnumerable<TestData> testDataCollection)
@@ -91,6 +93,20 @@ namespace TreeDataGrid
 				}
 			}
 			return result;
+		}
+
+		private void Button_Click_1(object sender, RoutedEventArgs e)
+		{
+			var testData = (sender as CheckBox).DataContext as TestData;
+			if (SelectConverter.SelectedItems.Any(o => o == testData))
+			{
+				SelectConverter.SelectedItems.Remove(testData);
+			}
+			else
+			{
+				SelectConverter.SelectedItems.Add(testData);
+			}
+			dataGrid.ItemsSource = GetList(_testDataCollection);
 		}
 	}
 }
