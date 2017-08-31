@@ -55,6 +55,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="ChildrenVisibilityConverter.cs" />
+    <Compile Include="CustomSortingDataGrid.cs" />
     <Compile Include="MarginConverter.cs" />
     <Compile Include="SelectConverter.cs" />
     <Page Include="MainWindow.xaml">
