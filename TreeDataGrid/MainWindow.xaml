@@ -6,6 +6,34 @@
         xmlns:local="clr-namespace:TreeDataGrid"
         mc:Ignorable="d"
         Title="MainWindow" Height="600" Width="800">
+    <Window.Resources>
+        <Style TargetType="{x:Type CheckBox}" x:Key="myCheckboxStyle">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type CheckBox}">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock x:Name="textBlock" Text="[+]"/>
+                            <!--<Image x:Name="checkboxImage" Source="normal.png" Width="32"/>-->
+                            <ContentPresenter/>
+                        </StackPanel>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="textBlock" Property="Text"  Value="[-]"/>
+                            </Trigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsMouseOver" Value="True"/>
+                                    <Condition Property="IsChecked" Value="False"/>
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="textBlock" Property="Text" Value="[+]"/>
+                            </MultiTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </Window.Resources>
     <Grid>
         <Grid.Resources>
             <local:SelectConverter x:Key="SelectConverter" />
@@ -18,12 +46,12 @@
         </Grid.RowDefinitions>
         <Button Content="Button" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Width="772" Height="62" Margin="10,10,0,0" Click="Button_Click"/>
 
-        <local:CustomSortingDataGrid  x:Name="dataGrid" AutoGenerateColumns="False" >
+        <local:CustomSortingDataGrid x:Name="dataGrid" AutoGenerateColumns="False" >
             <local:CustomSortingDataGrid.Columns>
                 <DataGridTemplateColumn Header=">">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <CheckBox DataContext="{Binding .}"  Click="Button_Click_1" IsChecked="{Binding ., Converter={StaticResource SelectConverter}, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True,UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding ., Converter={StaticResource ChildrenVisibilityConverter}}"/>
+                            <CheckBox Style="{StaticResource myCheckboxStyle}" DataContext="{Binding .}"  Click="Button_Click_1" IsChecked="{Binding ., Converter={StaticResource SelectConverter}, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True,UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding ., Converter={StaticResource ChildrenVisibilityConverter}}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>

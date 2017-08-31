@@ -55,7 +55,6 @@ namespace TreeDataGrid
                 {
                     Name = "Parent",
                     Description = i.ToString()
-
                 };
                 var children = new List<TestData>();
                 for (int j = 0; j < 10; j++)
@@ -131,6 +130,20 @@ namespace TreeDataGrid
                     dataGrid.ItemsSource = ListHelper.GetList(newValues);
 			}
             
+		}
+
+		private void Button_Click_1(object sender, RoutedEventArgs e)
+		{
+			var testData = (sender as CheckBox).DataContext as TestData;
+			if (SelectConverter.SelectedItems.Any(o => o == testData))
+			{
+				SelectConverter.SelectedItems.Remove(testData);
+			}
+			else
+			{
+				SelectConverter.SelectedItems.Add(testData);
+			}
+			dataGrid.ItemsSource = GetList(_testDataCollection);
 		}
 	}
 }
